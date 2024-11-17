@@ -7,7 +7,11 @@ export enum eEthereumNetwork {
   ropsten = 'ropsten',
   main = 'main',
   tenderly = 'tenderly',
-  goerli = 'goerli',
+  sepolia = 'sepolia',
+}
+
+export enum eBscNetwork {
+  main = 'bsc',
 }
 
 export enum eContractid {
@@ -23,6 +27,7 @@ export enum eContractid {
   MockTransferHook = 'MockTransferHook',
   ATokenMock = 'ATokenMock',
   StakedAaveV2 = 'StakedAaveV2',
+  StakedAaveV2Impl = 'StakedAaveV2Impl',
   DoubleTransferHelper = 'DoubleTransferHelper',
   ICRPFactory = 'ICRPFactory',
   StakedTokenV2 = 'StakedTokenV2',
@@ -35,6 +40,7 @@ export enum eContractid {
   StakedTokenBptRev2 = 'StakedTokenBptRev2',
   AaveStakingHelper = 'AaveStakingHelper',
   StakeUIHelper = 'StakeUIHelper',
+  StakedTokenDataProvider = 'StakedTokenDataProvider',
 }
 
 export type tEthereumAddress = string;
@@ -48,8 +54,7 @@ export interface iParamsPerNetwork<T> {
   [eEthereumNetwork.coverage]: T;
   [eEthereumNetwork.hardhat]: T;
   [eEthereumNetwork.kovan]: T;
-  [eEthereumNetwork.goerli]: T;
+  [eEthereumNetwork.sepolia]: T;
   [eEthereumNetwork.ropsten]: T;
   [eEthereumNetwork.main]: T;
-  [eEthereumNetwork.goerli]: T;
 }

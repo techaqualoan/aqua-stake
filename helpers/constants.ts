@@ -1,4 +1,4 @@
-import { eEthereumNetwork, tEthereumAddress } from './types';
+import { eEthereumNetwork, eBscNetwork, tEthereumAddress } from './types';
 import { getParamPerNetwork } from './misc-utils';
 
 export const MAX_UINT_AMOUNT =
@@ -32,6 +32,18 @@ export const PSM_STAKER_PREMIUM = '2';
 
 // just junk mock
 
+export const chainlinkEthUsdAggregatorProxy: Record<string, string> = {
+  main: '0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419',
+  [eEthereumNetwork.sepolia]: '0x694AA1769357215DE4FAC081bf1f309aDC325306',
+  [eBscNetwork.main]: '0x0567F2323251f0Aab15c8dFb1967E4e8A7D42aeE',
+};
+
+export const chainlinkAaveUsdAggregatorProxy: Record<string, string> = {
+  main: '0x547a514d5e3769680Ce22B2361c10Ea13619e8a9',
+  [eEthereumNetwork.sepolia]: '0x2daE65A4B86B0f4832861a950c87957b8CA2e4FF',
+  [eBscNetwork.main]: '0xA8357BF572460fC40f4B0aCacbB2a6A61c89f475',
+};
+
 export const RANDOM_ADDRESSES = [
   '0x0000000000000000000000000000000000000221',
   '0x0000000000000000000000000000000000000321',
@@ -52,7 +64,7 @@ export const getAaveTokenPerNetwork = (network: eEthereumNetwork): tEthereumAddr
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
       [eEthereumNetwork.hardhat]: ZERO_ADDRESS,
       [eEthereumNetwork.kovan]: '0xe4483afcf0d612c011679C76B61F5b0d27bAF93C',
-      [eEthereumNetwork.goerli]: '0x8153a21dfeb1f67024aa6c6e611432900ff3dcb9',
+      [eEthereumNetwork.sepolia]: '0x46A69C9C2c123d3A4947c18AbA031EB41409FaDa',
       [eEthereumNetwork.ropsten]: '0x74dA004A1B81b4d0C79F5820f9FF22647cb1dD95',
       [eEthereumNetwork.main]: '0x9c0435779F5E52CEC404D957C9bAa6f7d674C8bA',
     },
@@ -65,7 +77,7 @@ export const getCooldownSecondsPerNetwork = (network: eEthereumNetwork): tEthere
       [eEthereumNetwork.coverage]: COOLDOWN_SECONDS,
       [eEthereumNetwork.hardhat]: COOLDOWN_SECONDS,
       [eEthereumNetwork.kovan]: '21600', // 6h
-      [eEthereumNetwork.goerli]: '180', // 3min
+      [eEthereumNetwork.sepolia]: '180', // 3min
       [eEthereumNetwork.ropsten]: '180', // 3min
       [eEthereumNetwork.main]: '864000', // 10d
     },
@@ -78,7 +90,7 @@ export const getUnstakeWindowPerNetwork = (network: eEthereumNetwork): tEthereum
       [eEthereumNetwork.coverage]: UNSTAKE_WINDOW,
       [eEthereumNetwork.hardhat]: UNSTAKE_WINDOW,
       [eEthereumNetwork.kovan]: '10800', // 3h
-      [eEthereumNetwork.goerli]: '240', // 4min
+      [eEthereumNetwork.sepolia]: '240', // 4min
       [eEthereumNetwork.ropsten]: '240', // 4m
       [eEthereumNetwork.main]: '172800', // 2d
     },
@@ -91,7 +103,7 @@ export const getAaveAdminPerNetwork = (network: eEthereumNetwork): tEthereumAddr
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
       [eEthereumNetwork.hardhat]: ZERO_ADDRESS,
       [eEthereumNetwork.kovan]: '0x8134929c3dcb1b8b82f27f53424b959fb82182f2', // Aave Governance
-      [eEthereumNetwork.goerli]: ZERO_ADDRESS,
+      [eEthereumNetwork.sepolia]: '0x0b6d901Ed06FE8f3f24d7E4F49597B320f5dCA6b',
       [eEthereumNetwork.ropsten]: '0xEd93e49A2d75beA505fD4D1A0Dff745f69F2E997', // Aave Governance
       [eEthereumNetwork.main]: '0x8a2Efd9A790199F4c94c6effE210fce0B4724f52', // Aave Governance
     },
@@ -104,7 +116,7 @@ export const getDistributionDurationPerNetwork = (network: eEthereumNetwork): tE
       [eEthereumNetwork.coverage]: DISTRIBUTION_DURATION,
       [eEthereumNetwork.hardhat]: DISTRIBUTION_DURATION,
       [eEthereumNetwork.kovan]: '864000',
-      [eEthereumNetwork.goerli]: '864000',
+      [eEthereumNetwork.sepolia]: '864000',
       [eEthereumNetwork.ropsten]: '864000',
       [eEthereumNetwork.main]: '12960000', // 5 months (30 days) in seconds
     },
@@ -117,7 +129,7 @@ export const getAaveIncentivesVaultPerNetwork = (network: eEthereumNetwork): tEt
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
       [eEthereumNetwork.hardhat]: ZERO_ADDRESS,
       [eEthereumNetwork.kovan]: ZERO_ADDRESS,
-      [eEthereumNetwork.goerli]: ZERO_ADDRESS,
+      [eEthereumNetwork.sepolia]: '0x0b6d901Ed06FE8f3f24d7E4F49597B320f5dCA6b',
       [eEthereumNetwork.ropsten]: ZERO_ADDRESS,
       [eEthereumNetwork.main]: '0x253f7b06c1d60c1fbbc9d82c301327eb86e3ba81',
     },

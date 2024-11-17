@@ -17,7 +17,7 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
   address public immutable override ETH_USD_PRICE_FEED;
 
   /// @inheritdoc IStakedTokenDataProvider
-  address public immutable override AAVE_PRICE_FEED;
+  address public immutable override AAVE_USD_PRICE_FEED;
 
   /// @inheritdoc IStakedTokenDataProvider
   address public immutable override BPT_PRICE_FEED;
@@ -62,7 +62,7 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
     BPT = bpt;
     STAKED_BPT = stkBpt;
     ETH_USD_PRICE_FEED = ethUsdPriceFeed;
-    AAVE_PRICE_FEED = aavePriceFeed;
+    AAVE_USD_PRICE_FEED = aavePriceFeed;
     BPT_PRICE_FEED = bptPriceFeed;
   }
 
@@ -145,10 +145,9 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
     returns (StakedTokenData memory data)
   {
     data.stakedTokenTotalSupply = stakedToken.totalSupply();
-    data.stakedTokenTotalRedeemableAmount = stakedToken.previewRedeem(data.stakedTokenTotalSupply);
     data.stakeCooldownSeconds = stakedToken.COOLDOWN_SECONDS();
     data.stakeUnstakeWindow = stakedToken.UNSTAKE_WINDOW();
-    data.rewardTokenPriceEth = uint256(AggregatorInterface(AAVE_PRICE_FEED).latestAnswer());
+    data.rewardTokenPriceUSD = uint256(AggregatorInterface(AAVE_USD_PRICE_FEED).latestAnswer());
     data.distributionEnd = stakedToken.DISTRIBUTION_END();
 
     data.distributionPerSecond = block.timestamp < data.distributionEnd
@@ -157,7 +156,7 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
 
     // stkAave
     if (address(stakedToken) == STAKED_AAVE) {
-      data.stakedTokenPriceEth = data.rewardTokenPriceEth;
+      data.stakedTokenPriceUSD = data.rewardTokenPriceUSD;
       // assumes AAVE and stkAAVE have the same value
       data.stakeApy = _calculateApy(data.distributionPerSecond, data.stakedTokenTotalSupply);
 
@@ -165,7 +164,7 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
     } else if (address(stakedToken) == STAKED_BPT) {
       data.stakedTokenPriceEth = uint256(AggregatorInterface(BPT_PRICE_FEED).latestAnswer());
       data.stakeApy = _calculateApy(
-        data.distributionPerSecond * data.rewardTokenPriceEth,
+        data.distributionPerSecond * data.rewardTokenPriceUSD,
         data.stakedTokenTotalSupply * data.stakedTokenPriceEth
       );
     }
@@ -199,7 +198,7 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
     data.stakedTokenUserBalance = stakedToken.balanceOf(user);
     data.rewardsToClaim = stakedToken.getTotalRewardsBalance(user);
     data.underlyingTokenUserBalance = IERC20(stakedToken.STAKED_TOKEN()).balanceOf(user);
-    data.stakedTokenRedeemableAmount = stakedToken.previewRedeem(data.stakedTokenUserBalance);
-    (data.userCooldownTimestamp, data.userCooldownAmount) = stakedToken.stakersCooldowns(user);
+    data.stakedTokenRedeemableAmount = data.stakedTokenUserBalance;
+    data.userCooldownTimestamp = stakedToken.stakersCooldowns(user);
   }
 }

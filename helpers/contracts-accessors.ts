@@ -23,7 +23,7 @@ import { DoubleTransferHelper } from '../types/DoubleTransferHelper';
 import { zeroAddress } from 'ethereumjs-util';
 import { ZERO_ADDRESS } from './constants';
 import { Signer } from 'ethers';
-import { StakedTokenBptRev2, StakedTokenV2Rev3 } from '../types';
+import { StakedTokenBptRev2, StakedTokenDataProvider, StakedTokenV2Rev3 } from '../types';
 
 export const deployStakedAave = async (
   [
@@ -388,6 +388,14 @@ export const getStakedAaveImpl = async (address?: tEthereumAddress) => {
   );
 };
 
+export const getStakedAaveV2Impl = async (address?: tEthereumAddress) => {
+  return await getContract<StakedAaveV2>(
+    eContractid.StakedAaveV2,
+    address ||
+      (await getDb().get(`${eContractid.StakedAaveV2Impl}.${DRE.network.name}`).value()).address
+  );
+};
+
 export const getStakedTokenV2 = async (address?: tEthereumAddress) => {
   return await getContract<StakedTokenV2>(
     eContractid.StakedTokenV2,
@@ -465,6 +473,28 @@ export const deployStakeUIHelper = async (
   const args: string[] = [priceOracle, bptPriceFeed, aave, stkAave, bpt, stkBpt];
 
   const instance = await deployContract<StakeUiHelper>(id, args);
+  if (verify) {
+    await verifyContract(instance.address, args);
+  }
+  return instance;
+};
+
+export const deployStakedTokenDataProvider = async (
+  [aave, stkAave, bpt, stkBpt, ethUsdPriceFeed, aavePriceFeed, bptPriceFeed]: [
+    tEthereumAddress,
+    tEthereumAddress,
+    tEthereumAddress,
+    tEthereumAddress,
+    tEthereumAddress,
+    tEthereumAddress,
+    tEthereumAddress
+  ],
+  verify?: boolean
+) => {
+  const id = eContractid.StakedTokenDataProvider;
+  const args: string[] = [aave, stkAave, bpt, stkBpt, ethUsdPriceFeed, aavePriceFeed, bptPriceFeed];
+
+  const instance = await deployContract<StakedTokenDataProvider>(id, args);
   if (verify) {
     await verifyContract(instance.address, args);
   }

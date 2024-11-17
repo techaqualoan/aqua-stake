@@ -34,5 +34,7 @@ task('common-deployment', 'Deployment in for Main, Kovan and Ropsten networks')
       admin: aaveAdmin,
     });
 
-    console.log(`\n✔️ Finished the deployment of the Aave Token ${network} Enviroment. ✔️`);
+    await DRE.run(`upgrade-${eContractid.StakedAave}`, { verify, vaultAddress, aaveAddress });
+
+    console.log(`\n✔️ Finished the deployment of the Aave StakedToken ${network} Enviroment. ✔️`);
   });

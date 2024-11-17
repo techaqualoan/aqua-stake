@@ -14,7 +14,7 @@ const okErrors = [`Contract source code already verified`];
 
 const unableVerifyError = 'Fail - Unable to verify';
 
-export const SUPPORTED_ETHERSCAN_NETWORKS = ['main', 'ropsten', 'kovan', 'goerli'];
+export const SUPPORTED_ETHERSCAN_NETWORKS = ['main', 'ropsten', 'kovan', 'sepolia'];
 
 function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -41,7 +41,7 @@ export const verifyContract = async (
     console.log(
       '[ETHERSCAN][WARNING] Delaying Etherscan verification due their API can not find newly deployed contracts'
     );
-    const msDelay = 3000;
+    const msDelay = 10000;
     const times = 4;
     // Write a temporal file to host complex parameters for buidler-etherscan https://github.com/nomiclabs/buidler/tree/development/packages/buidler-etherscan#complex-arguments
     const { fd, path, cleanup } = await file({
@@ -53,10 +53,10 @@ export const verifyContract = async (
     const params = {
       address: address,
       libraries,
-      constructorArgs: path,
+      constructorArguments,
       relatedSources: true,
     };
-    await runTaskWithRetry('verify', params, times, msDelay, cleanup);
+    await runTaskWithRetry('verify:verify', params, times, msDelay, cleanup);
   } catch (error) {}
 };
 

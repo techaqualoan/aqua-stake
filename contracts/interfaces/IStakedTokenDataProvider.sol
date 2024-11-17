@@ -12,8 +12,9 @@ interface IStakedTokenDataProvider {
     uint256 stakedTokenTotalRedeemableAmount;
     uint256 stakeCooldownSeconds;
     uint256 stakeUnstakeWindow;
+    uint256 stakedTokenPriceUSD;
     uint256 stakedTokenPriceEth;
-    uint256 rewardTokenPriceEth;
+    uint256 rewardTokenPriceUSD;
     uint256 stakeApy;
     uint128 distributionPerSecond;
     uint256 distributionEnd;
@@ -38,7 +39,7 @@ interface IStakedTokenDataProvider {
    * @notice Return the address of the AAVE price feed, ETH denominated
    * @return The address of the AAVE price feed, ETH denominated, expressed with 18 decimals
    */
-  function AAVE_PRICE_FEED() external returns (address);
+  function AAVE_USD_PRICE_FEED() external returns (address);
 
   /**
    * @notice Return the address of the BPT price feed, ETH denominated

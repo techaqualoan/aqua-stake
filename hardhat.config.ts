@@ -9,7 +9,8 @@ import { HardhatUserConfig } from 'hardhat/types';
 import '@typechain/hardhat';
 import 'solidity-coverage';
 import '@nomiclabs/hardhat-waffle';
-import '@nomiclabs/hardhat-etherscan';
+import "@nomicfoundation/hardhat-verify";
+// import '@nomiclabs/hardhat-etherscan';
 import '@tenderly/hardhat-tenderly';
 
 dotenv.config();
@@ -67,7 +68,7 @@ const getCommonNetworkConfig = (networkName: eEthereumNetwork, networkId: number
     url: ALCHEMY_KEY
       ? `https://eth-${
           networkName === 'main' ? 'mainnet' : networkName
-        }.alchemyapi.io/v2/${ALCHEMY_KEY}`
+        }.g.alchemy.com/v2/${ALCHEMY_KEY}`
       : `https://${networkName}.infura.io/v3/${INFURA_KEY}`,
     hardfork: HARDFORK,
     blockGasLimit: DEFAULT_BLOCK_GAS_LIMIT,
@@ -114,7 +115,7 @@ const config: HardhatUserConfig = {
     tenderly: getCommonNetworkConfig(eEthereumNetwork.tenderly, 3030),
     kovan: getCommonNetworkConfig(eEthereumNetwork.kovan, 42),
     ropsten: getCommonNetworkConfig(eEthereumNetwork.ropsten, 3),
-    goerli: getCommonNetworkConfig(eEthereumNetwork.goerli, 5),
+    sepolia: getCommonNetworkConfig(eEthereumNetwork.sepolia, 11155111),
     main: getCommonNetworkConfig(eEthereumNetwork.main, 1),
     hardhat: {
       hardfork: 'london',
