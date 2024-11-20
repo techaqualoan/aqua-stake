@@ -13,6 +13,8 @@ import {
   STAKED_AAVE_NAME,
   STAKED_AAVE_DECIMALS,
   STAKED_AAVE_SYMBOL,
+  getEmissionManagerPerNetwork,
+  getStakedAaveProxyPerNetwork,
 } from '../../helpers/constants';
 import {
   deployStakedAave,
@@ -57,7 +59,7 @@ task(`upgrade-${StakedAave}`, `Upgrade the ${StakedAave} proxy contract`)
         getCooldownSecondsPerNetwork(network),
         getUnstakeWindowPerNetwork(network),
         vaultAddress || getAaveIncentivesVaultPerNetwork(network),
-        getAaveAdminPerNetwork(network),
+        getEmissionManagerPerNetwork(network),
         getDistributionDurationPerNetwork(network),
       ],
       verify
@@ -69,7 +71,7 @@ task(`upgrade-${StakedAave}`, `Upgrade the ${StakedAave} proxy contract`)
       `\tFinished ${StakedAaveV2} implementation deployment, deployed to ${stakedAaveV2Impl.address}`
     );
 
-    const stakedAaveProxy = await getStakedAaveProxy('0x234753D2Cc86a6Ee8d895caEA93A89c048d987Eb');
+    const stakedAaveProxy = await getStakedAaveProxy(getStakedAaveProxyPerNetwork(network));
 
     console.log(`\tUpgrading StakedAave proxy ${stakedAaveProxy.address}`);
 

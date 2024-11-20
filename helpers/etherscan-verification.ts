@@ -50,6 +50,8 @@ export const verifyContract = async (
     });
     fs.writeSync(fd, `module.exports = ${JSON.stringify([...constructorArguments])};`);
 
+    console.log(`Verify arguments: ${JSON.stringify([...constructorArguments])};`);
+
     const params = {
       address: address,
       libraries,

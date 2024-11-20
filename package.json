@@ -34,6 +34,8 @@
     "kovan:deployment": "npm run hardhat-kovan -- common-deployment --verify",
     "sepolia:deployment": "npm run hardhat-sepolia -- common-deployment --verify",
     "main:deployment": "npm run hardhat-main -- common-deployment --verify",
+    "sepolia:upgrade": "npm run hardhat-sepolia -- upgrade-StakedAave --verify",
+    "sepolia:stake-data-provider": "npm run hardhat-sepolia -- deploy-StakedTokenDataProvider --verify",
     "prettier:check": "npx prettier -c 'tasks/**/*.ts' 'contracts/**/*.sol' 'helpers/**/*.ts'  'test/**/*.ts'",
     "prettier:write": "prettier --write 'tasks/**/*.ts' 'contracts/**/*.sol' 'helpers/**/*.ts'  'test/**/*.ts'",
     "ci:clean": "rm -rf types/ cache/ artifacts/",

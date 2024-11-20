@@ -199,6 +199,31 @@ contract StakedTokenV2 is
     emit RewardsClaimed(msg.sender, to, amountToClaim);
   }
 
+  function claimRewardsAndStake(address to, uint256 amount) external returns (uint256) {
+    require(amount != 0, 'INVALID_ZERO_AMOUNT');
+    require(REWARD_TOKEN == STAKED_TOKEN, 'INVALID ACTION');
+
+    uint256 balanceOfUser = balanceOf(to);
+    uint256 newTotalRewards = _updateCurrentUnclaimedRewards(to, balanceOfUser, false);
+    uint256 amountToClaimAndStake = (amount == type(uint256).max) ? newTotalRewards : amount;
+
+    stakerRewardsToClaim[to] = newTotalRewards.sub(amountToClaimAndStake, 'INVALID_AMOUNT');
+    stakersCooldowns[to] = getNextCooldownTimestamp(0, amountToClaimAndStake, to, balanceOfUser);
+
+    _mint(to, amountToClaimAndStake);
+    REWARD_TOKEN.safeTransferFrom(REWARDS_VAULT, address(this), amountToClaimAndStake);
+
+    uint256 accruedRewards =
+      _updateUserAssetInternal(to, address(this), balanceOf(to), totalSupply());
+    if (accruedRewards != 0) {
+      emit RewardsAccrued(to, accruedRewards);
+      stakerRewardsToClaim[to] = stakerRewardsToClaim[to].add(accruedRewards);
+    }
+
+    emit RewardsClaimed(msg.sender, to, amountToClaimAndStake);
+    emit Staked(msg.sender, to, amountToClaimAndStake);
+  }
+
   /**
    * @dev Internal ERC20 _transfer of the tokenized staked tokens
    * @param from Address to transfer from

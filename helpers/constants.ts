@@ -103,9 +103,35 @@ export const getAaveAdminPerNetwork = (network: eEthereumNetwork): tEthereumAddr
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
       [eEthereumNetwork.hardhat]: ZERO_ADDRESS,
       [eEthereumNetwork.kovan]: '0x8134929c3dcb1b8b82f27f53424b959fb82182f2', // Aave Governance
+      [eEthereumNetwork.sepolia]: '0x113107a1165371A71D3747e7C0dB98b181ED0FD7',
+      [eEthereumNetwork.ropsten]: '0xEd93e49A2d75beA505fD4D1A0Dff745f69F2E997', // Aave Governance
+      [eEthereumNetwork.main]: '0x8a2Efd9A790199F4c94c6effE210fce0B4724f52', // Aave Governance
+    },
+    network
+  );
+
+export const getEmissionManagerPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
+  getParamPerNetwork<tEthereumAddress>(
+    {
+      [eEthereumNetwork.coverage]: ZERO_ADDRESS,
+      [eEthereumNetwork.hardhat]: ZERO_ADDRESS,
+      [eEthereumNetwork.kovan]: '0x8134929c3dcb1b8b82f27f53424b959fb82182f2', // Aave Governance
       [eEthereumNetwork.sepolia]: '0x0b6d901Ed06FE8f3f24d7E4F49597B320f5dCA6b',
       [eEthereumNetwork.ropsten]: '0xEd93e49A2d75beA505fD4D1A0Dff745f69F2E997', // Aave Governance
       [eEthereumNetwork.main]: '0x8a2Efd9A790199F4c94c6effE210fce0B4724f52', // Aave Governance
+    },
+    network
+  );
+
+export const getStakedAaveProxyPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
+  getParamPerNetwork<tEthereumAddress>(
+    {
+      [eEthereumNetwork.coverage]: ZERO_ADDRESS,
+      [eEthereumNetwork.hardhat]: ZERO_ADDRESS,
+      [eEthereumNetwork.kovan]: ZERO_ADDRESS,
+      [eEthereumNetwork.sepolia]: '0x234753D2Cc86a6Ee8d895caEA93A89c048d987Eb',
+      [eEthereumNetwork.ropsten]: ZERO_ADDRESS,
+      [eEthereumNetwork.main]: ZERO_ADDRESS,
     },
     network
   );
