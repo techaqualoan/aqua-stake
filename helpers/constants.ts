@@ -67,6 +67,7 @@ export const getAaveTokenPerNetwork = (network: eEthereumNetwork): tEthereumAddr
       [eEthereumNetwork.sepolia]: '0x46A69C9C2c123d3A4947c18AbA031EB41409FaDa',
       [eEthereumNetwork.ropsten]: '0x74dA004A1B81b4d0C79F5820f9FF22647cb1dD95',
       [eEthereumNetwork.main]: '0x9c0435779F5E52CEC404D957C9bAa6f7d674C8bA',
+      [eBscNetwork.main]: '0xD1Fb55d61c2494ced556536F898D969e2F6Dd2Bf',
     },
     network
   );
@@ -80,6 +81,7 @@ export const getCooldownSecondsPerNetwork = (network: eEthereumNetwork): tEthere
       [eEthereumNetwork.sepolia]: '180', // 3min
       [eEthereumNetwork.ropsten]: '180', // 3min
       [eEthereumNetwork.main]: '864000', // 10d
+      [eBscNetwork.main]: '864000', // 10d
     },
     network
   );
@@ -93,6 +95,7 @@ export const getUnstakeWindowPerNetwork = (network: eEthereumNetwork): tEthereum
       [eEthereumNetwork.sepolia]: '240', // 4min
       [eEthereumNetwork.ropsten]: '240', // 4m
       [eEthereumNetwork.main]: '172800', // 2d
+      [eBscNetwork.main]: '172800', // 2d
     },
     network
   );
@@ -106,6 +109,7 @@ export const getAaveAdminPerNetwork = (network: eEthereumNetwork): tEthereumAddr
       [eEthereumNetwork.sepolia]: '0x113107a1165371A71D3747e7C0dB98b181ED0FD7',
       [eEthereumNetwork.ropsten]: '0xEd93e49A2d75beA505fD4D1A0Dff745f69F2E997', // Aave Governance
       [eEthereumNetwork.main]: '0x8a2Efd9A790199F4c94c6effE210fce0B4724f52', // Aave Governance
+      [eBscNetwork.main]: '',
     },
     network
   );
@@ -119,6 +123,7 @@ export const getEmissionManagerPerNetwork = (network: eEthereumNetwork): tEthere
       [eEthereumNetwork.sepolia]: '0x0b6d901Ed06FE8f3f24d7E4F49597B320f5dCA6b',
       [eEthereumNetwork.ropsten]: '0xEd93e49A2d75beA505fD4D1A0Dff745f69F2E997', // Aave Governance
       [eEthereumNetwork.main]: '0x8a2Efd9A790199F4c94c6effE210fce0B4724f52', // Aave Governance
+      [eBscNetwork.main]: '0x084126414188735846e4f1851cb3d01d829fa15b',
     },
     network
   );
@@ -132,6 +137,7 @@ export const getStakedAaveProxyPerNetwork = (network: eEthereumNetwork): tEthere
       [eEthereumNetwork.sepolia]: '0x234753D2Cc86a6Ee8d895caEA93A89c048d987Eb',
       [eEthereumNetwork.ropsten]: ZERO_ADDRESS,
       [eEthereumNetwork.main]: ZERO_ADDRESS,
+      [eBscNetwork.main]: ZERO_ADDRESS,
     },
     network
   );
@@ -145,6 +151,7 @@ export const getDistributionDurationPerNetwork = (network: eEthereumNetwork): tE
       [eEthereumNetwork.sepolia]: '864000',
       [eEthereumNetwork.ropsten]: '864000',
       [eEthereumNetwork.main]: '12960000', // 5 months (30 days) in seconds
+      [eBscNetwork.main]: '12960000', // 5 months (30 days) in seconds
     },
     network
   );
@@ -158,6 +165,7 @@ export const getAaveIncentivesVaultPerNetwork = (network: eEthereumNetwork): tEt
       [eEthereumNetwork.sepolia]: '0x0b6d901Ed06FE8f3f24d7E4F49597B320f5dCA6b',
       [eEthereumNetwork.ropsten]: ZERO_ADDRESS,
       [eEthereumNetwork.main]: '0x253f7b06c1d60c1fbbc9d82c301327eb86e3ba81',
+      [eBscNetwork.main]: '0xDa1Ab123FC59102215054d97a515E6848A75e93a',
     },
     network
   );

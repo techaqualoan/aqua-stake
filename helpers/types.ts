@@ -57,4 +57,5 @@ export interface iParamsPerNetwork<T> {
   [eEthereumNetwork.sepolia]: T;
   [eEthereumNetwork.ropsten]: T;
   [eEthereumNetwork.main]: T;
+  [eBscNetwork.main]: T;
 }
