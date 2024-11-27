@@ -69,7 +69,7 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
 
   function calculateAquaUsdPrice() public view returns (uint256 price) {
     (uint112 reserveUSDT, uint112 reserveAQUA, ) = IPancakePair(AQUA_USD_LP).getReserves();
-    price = (uint256(reserveUSDT) * 1e18) / uint256(reserveAQUA);
+    price = (uint256(reserveUSDT) * 1e8) / uint256(reserveAQUA);
   }
 
   /// @inheritdoc IStakedTokenDataProvider
