@@ -1,6 +1,6 @@
 import { task } from 'hardhat/config';
 
-import { eContractid, eEthereumNetwork } from '../../helpers/types';
+import { eBscNetwork, eContractid, eEthereumNetwork } from '../../helpers/types';
 import { registerContractInJsonDb } from '../../helpers/contracts-helpers';
 import {
   chainlinkAaveUsdAggregatorProxy,
@@ -42,8 +42,8 @@ task(`deploy-${StakedTokenDataProvider}`, `Deploys the ${StakedTokenDataProvider
         stkAaveAddress,
         ZERO_ADDRESS,
         ZERO_ADDRESS,
-        chainlinkEthUsdAggregatorProxy[eEthereumNetwork.sepolia],
-        chainlinkAaveUsdAggregatorProxy[eEthereumNetwork.sepolia],
+        '0xfc79eb915d2a18c2b796f468f7429426bae45ce9',
+        chainlinkEthUsdAggregatorProxy[eBscNetwork.main],
         ZERO_ADDRESS,
       ],
       verify

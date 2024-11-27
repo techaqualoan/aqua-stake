@@ -9,8 +9,8 @@ export const COOLDOWN_SECONDS = '3600'; // 1 hour in seconds
 export const UNSTAKE_WINDOW = '1800'; // 30 min in seconds
 export const DISTRIBUTION_DURATION = '86400'; // 1 day in seconds
 
-export const STAKED_AAVE_NAME = 'Staked Aave';
-export const STAKED_AAVE_SYMBOL = 'stkAAVE';
+export const STAKED_AAVE_NAME = 'Staked AQUA';
+export const STAKED_AAVE_SYMBOL = 'stkAQUA';
 export const STAKED_AAVE_DECIMALS = 18;
 
 export const AAVE_GOVERNANCE_V2 = '0xEC568fffba86c094cf06b22134B23074DFE2252c';
@@ -58,7 +58,7 @@ export const RANDOM_ADDRESSES = [
   '0x0000000000000000000000000000000000000721',
 ];
 
-export const getAaveTokenPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
+export const getAaveTokenPerNetwork = (network: eEthereumNetwork | eBscNetwork): tEthereumAddress =>
   getParamPerNetwork<tEthereumAddress>(
     {
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
@@ -72,7 +72,9 @@ export const getAaveTokenPerNetwork = (network: eEthereumNetwork): tEthereumAddr
     network
   );
 
-export const getCooldownSecondsPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
+export const getCooldownSecondsPerNetwork = (
+  network: eEthereumNetwork | eBscNetwork
+): tEthereumAddress =>
   getParamPerNetwork<string>(
     {
       [eEthereumNetwork.coverage]: COOLDOWN_SECONDS,
@@ -86,7 +88,9 @@ export const getCooldownSecondsPerNetwork = (network: eEthereumNetwork): tEthere
     network
   );
 
-export const getUnstakeWindowPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
+export const getUnstakeWindowPerNetwork = (
+  network: eEthereumNetwork | eBscNetwork
+): tEthereumAddress =>
   getParamPerNetwork<string>(
     {
       [eEthereumNetwork.coverage]: UNSTAKE_WINDOW,
@@ -100,7 +104,7 @@ export const getUnstakeWindowPerNetwork = (network: eEthereumNetwork): tEthereum
     network
   );
 
-export const getAaveAdminPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
+export const getAaveAdminPerNetwork = (network: eEthereumNetwork | eBscNetwork): tEthereumAddress =>
   getParamPerNetwork<tEthereumAddress>(
     {
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
@@ -109,12 +113,14 @@ export const getAaveAdminPerNetwork = (network: eEthereumNetwork): tEthereumAddr
       [eEthereumNetwork.sepolia]: '0x113107a1165371A71D3747e7C0dB98b181ED0FD7',
       [eEthereumNetwork.ropsten]: '0xEd93e49A2d75beA505fD4D1A0Dff745f69F2E997', // Aave Governance
       [eEthereumNetwork.main]: '0x8a2Efd9A790199F4c94c6effE210fce0B4724f52', // Aave Governance
-      [eBscNetwork.main]: '',
+      [eBscNetwork.main]: '0x28A10C3Cc38FD49024e9AD9f28155bba9410DFeB',
     },
     network
   );
 
-export const getEmissionManagerPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
+export const getEmissionManagerPerNetwork = (
+  network: eEthereumNetwork | eBscNetwork
+): tEthereumAddress =>
   getParamPerNetwork<tEthereumAddress>(
     {
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
@@ -128,8 +134,10 @@ export const getEmissionManagerPerNetwork = (network: eEthereumNetwork): tEthere
     network
   );
 
-export const getStakedAaveProxyPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
-  getParamPerNetwork<tEthereumAddress>(
+export const getStakedAaveProxyPerNetwork = (
+  network: eEthereumNetwork | eBscNetwork
+): tEthereumAddress => {
+  return getParamPerNetwork<tEthereumAddress>(
     {
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,
       [eEthereumNetwork.hardhat]: ZERO_ADDRESS,
@@ -137,12 +145,15 @@ export const getStakedAaveProxyPerNetwork = (network: eEthereumNetwork): tEthere
       [eEthereumNetwork.sepolia]: '0x234753D2Cc86a6Ee8d895caEA93A89c048d987Eb',
       [eEthereumNetwork.ropsten]: ZERO_ADDRESS,
       [eEthereumNetwork.main]: ZERO_ADDRESS,
-      [eBscNetwork.main]: ZERO_ADDRESS,
+      [eBscNetwork.main]: '0x5F281bdaD2E6d4af7354054f48609273e874366f',
     },
     network
   );
+};
 
-export const getDistributionDurationPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
+export const getDistributionDurationPerNetwork = (
+  network: eEthereumNetwork | eBscNetwork
+): tEthereumAddress =>
   getParamPerNetwork<tEthereumAddress>(
     {
       [eEthereumNetwork.coverage]: DISTRIBUTION_DURATION,
@@ -156,7 +167,9 @@ export const getDistributionDurationPerNetwork = (network: eEthereumNetwork): tE
     network
   );
 
-export const getAaveIncentivesVaultPerNetwork = (network: eEthereumNetwork): tEthereumAddress =>
+export const getAaveIncentivesVaultPerNetwork = (
+  network: eEthereumNetwork | eBscNetwork
+): tEthereumAddress =>
   getParamPerNetwork<tEthereumAddress>(
     {
       [eEthereumNetwork.coverage]: ZERO_ADDRESS,

@@ -44,6 +44,12 @@ task(`initialize-${StakedAave}`, `Initialize the ${StakedAave} proxy contract`)
       STAKED_AAVE_DECIMALS,
     ]);
 
+    console.log('initialization call:', {
+      'stakedAaveImpl.address': stakedAaveImpl.address,
+      aaveAdmin,
+      encodedInitializeStakedAave,
+    });
+
     await waitForTx(
       await stakedAaveProxy.functions['initialize(address,address,bytes)'](
         stakedAaveImpl.address,

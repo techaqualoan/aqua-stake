@@ -39,7 +39,7 @@ interface IStakedTokenDataProvider {
    * @notice Return the address of the AAVE price feed, ETH denominated
    * @return The address of the AAVE price feed, ETH denominated, expressed with 18 decimals
    */
-  function AAVE_USD_PRICE_FEED() external returns (address);
+  function AQUA_USD_LP() external returns (address);
 
   /**
    * @notice Return the address of the BPT price feed, ETH denominated

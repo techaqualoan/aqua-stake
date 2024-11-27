@@ -1,4 +1,4 @@
-import { eEthereumNetwork } from './helpers/types';
+import { eBscNetwork, eEthereumNetwork } from './helpers/types';
 // @ts-ignore
 import { accounts } from './test-wallets';
 import path from 'path';
@@ -63,13 +63,14 @@ const accountsToUse =
       }
     : [PRIVATE_KEY];
 
-const getCommonNetworkConfig = (networkName: eEthereumNetwork, networkId: number) => {
+const getCommonNetworkConfig = (networkName: eEthereumNetwork| eBscNetwork, networkId: number) => {
   return {
-    url: ALCHEMY_KEY
-      ? `https://eth-${
-          networkName === 'main' ? 'mainnet' : networkName
-        }.g.alchemy.com/v2/${ALCHEMY_KEY}`
-      : `https://${networkName}.infura.io/v3/${INFURA_KEY}`,
+    // url: ALCHEMY_KEY
+    //   ? `https://eth-${
+    //       networkName === 'main' ? 'mainnet' : networkName
+    //     }.g.alchemy.com/v2/${ALCHEMY_KEY}`
+    //   : `https://${networkName}.infura.io/v3/${INFURA_KEY}`,
+    url: 'https://bsc-dataseed1.binance.org/',
     hardfork: HARDFORK,
     blockGasLimit: DEFAULT_BLOCK_GAS_LIMIT,
     chainId: networkId,
@@ -117,6 +118,7 @@ const config: HardhatUserConfig = {
     ropsten: getCommonNetworkConfig(eEthereumNetwork.ropsten, 3),
     sepolia: getCommonNetworkConfig(eEthereumNetwork.sepolia, 11155111),
     main: getCommonNetworkConfig(eEthereumNetwork.main, 1),
+    bsc: getCommonNetworkConfig(eBscNetwork.main, 56),
     hardhat: {
       hardfork: 'london',
       blockGasLimit: DEFAULT_BLOCK_GAS_LIMIT,

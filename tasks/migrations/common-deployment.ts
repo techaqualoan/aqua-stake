@@ -1,7 +1,7 @@
 import { task } from 'hardhat/config';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 
-import { eContractid, eEthereumNetwork } from '../../helpers/types';
+import { eBscNetwork, eContractid, eEthereumNetwork } from '../../helpers/types';
 import { checkVerification } from '../../helpers/etherscan-verification';
 import { getAaveAdminPerNetwork } from '../../helpers/constants';
 
@@ -14,7 +14,7 @@ task('common-deployment', 'Deployment in for Main, Kovan and Ropsten networks')
   .addOptionalParam('aaveAddress', 'Use AaveToken address by param instead of configuration.')
   .setAction(async ({ verify, vaultAddress, aaveAddress }, localBRE) => {
     const DRE: HardhatRuntimeEnvironment = await localBRE.run('set-dre');
-    const network = DRE.network.name as eEthereumNetwork;
+    const network = DRE.network.name as eEthereumNetwork | eBscNetwork;
     const aaveAdmin = getAaveAdminPerNetwork(network);
 
     if (!aaveAdmin) {

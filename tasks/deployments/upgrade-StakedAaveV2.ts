@@ -1,6 +1,6 @@
 import { task } from 'hardhat/config';
 
-import { eContractid, eEthereumNetwork, tEthereumAddress } from '../../helpers/types';
+import { eBscNetwork, eContractid, eEthereumNetwork, tEthereumAddress } from '../../helpers/types';
 import { registerContractInJsonDb } from '../../helpers/contracts-helpers';
 import {
   getAaveTokenPerNetwork,
@@ -21,6 +21,7 @@ import {
   deployInitializableAdminUpgradeabilityProxy,
   deployStakedAaveV2,
   getStakedAaveProxy,
+  getStakedAaveV2Impl,
 } from '../../helpers/contracts-accessors';
 import { checkVerification } from '../../helpers/etherscan-verification';
 import { waitForTx } from '../../helpers/misc-utils';
@@ -46,7 +47,7 @@ task(`upgrade-${StakedAave}`, `Upgrade the ${StakedAave} proxy contract`)
       throw new Error('INVALID_CHAIN_ID');
     }
 
-    const network = localBRE.network.name as eEthereumNetwork;
+    const network = localBRE.network.name as eEthereumNetwork | eBscNetwork;
 
     console.log(`\n- ${network} network`);
     console.log(`\n- ${StakedAaveV2} deployment`);
@@ -66,6 +67,8 @@ task(`upgrade-${StakedAave}`, `Upgrade the ${StakedAave} proxy contract`)
     );
     await stakedAaveV2Impl.deployTransaction.wait();
     await registerContractInJsonDb(StakedAaveV2Impl, stakedAaveV2Impl);
+
+    // const stakedAaveV2Impl = await getStakedAaveV2Impl("0x23c40c8E21c1Fdab2c04D6283366dc0470e22d40");
 
     console.log(
       `\tFinished ${StakedAaveV2} implementation deployment, deployed to ${stakedAaveV2Impl.address}`

@@ -5,6 +5,7 @@ pragma experimental ABIEncoderV2;
 import {IERC20} from '../interfaces/IERC20.sol';
 import {AggregatedStakedAaveV3} from '../interfaces/AggregatedStakedAaveV3.sol';
 import {IStakedToken} from '../interfaces/IStakedToken.sol';
+import {IPancakePair} from '../interfaces/IPancakePair.sol';
 import {AggregatorInterface} from '../interfaces/AggregatorInterface.sol';
 import {IStakedTokenDataProvider} from '../interfaces/IStakedTokenDataProvider.sol';
 
@@ -17,7 +18,7 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
   address public immutable override ETH_USD_PRICE_FEED;
 
   /// @inheritdoc IStakedTokenDataProvider
-  address public immutable override AAVE_USD_PRICE_FEED;
+  address public immutable override AQUA_USD_LP;
 
   /// @inheritdoc IStakedTokenDataProvider
   address public immutable override BPT_PRICE_FEED;
@@ -45,7 +46,7 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
    * @param bpt The address of the BPT AAVE / ETH token
    * @param stkBpt The address of the StkBptAAVE token
    * @param ethUsdPriceFeed The address of ETH price feed (USD denominated, with 8 decimals)
-   * @param aavePriceFeed The address of AAVE price feed (ETH denominated, with 18 decimals)
+   * @param aquaUsdLiquidityPool The address of Aqua USD PancakeSwap liquidity pool
    * @param bptPriceFeed The address of StakedBpt price feed (ETH denominated, with 18 decimals)
    */
   constructor(
@@ -53,8 +54,8 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
     address stkAave,
     address bpt,
     address stkBpt,
+    address aquaUsdLiquidityPool,
     address ethUsdPriceFeed,
-    address aavePriceFeed,
     address bptPriceFeed
   ) public {
     AAVE = aave;
@@ -62,8 +63,13 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
     BPT = bpt;
     STAKED_BPT = stkBpt;
     ETH_USD_PRICE_FEED = ethUsdPriceFeed;
-    AAVE_USD_PRICE_FEED = aavePriceFeed;
+    AQUA_USD_LP = aquaUsdLiquidityPool;
     BPT_PRICE_FEED = bptPriceFeed;
+  }
+
+  function calculateAquaUsdPrice() public view returns (uint256 price) {
+    (uint112 reserveUSDT, uint112 reserveAQUA, ) = IPancakePair(AQUA_USD_LP).getReserves();
+    price = (uint256(reserveUSDT) * 1e18) / uint256(reserveAQUA);
   }
 
   /// @inheritdoc IStakedTokenDataProvider
@@ -147,7 +153,7 @@ contract StakedTokenDataProvider is IStakedTokenDataProvider {
     data.stakedTokenTotalSupply = stakedToken.totalSupply();
     data.stakeCooldownSeconds = stakedToken.COOLDOWN_SECONDS();
     data.stakeUnstakeWindow = stakedToken.UNSTAKE_WINDOW();
-    data.rewardTokenPriceUSD = uint256(AggregatorInterface(AAVE_USD_PRICE_FEED).latestAnswer());
+    data.rewardTokenPriceUSD = calculateAquaUsdPrice();
     data.distributionEnd = stakedToken.DISTRIBUTION_END();
 
     data.distributionPerSecond = block.timestamp < data.distributionEnd
